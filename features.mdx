@@ -1,0 +1,199 @@
+---
+title: Core Features
+description: Explore the essential features of Monetizenow that power revenue lifecycle management, from guided selling to revenue recognition.
+---
+
+## Overview
+
+Monetizenow provides essential tools for B2B commerce, enabling you to manage pricing, quotes, customer data, products, billing, and usage tracking seamlessly. You streamline revenue operations with features like guided selling, automated CRM syncing, and flexible metering.
+
+These core capabilities integrate across your revenue lifecycle, from initial quote to recognition. Use them to create upsells, handle multi-currency payments, and track consumption models.
+
+<Columns cols={3}>
+  <Card title="Revenue Lifecycle" icon="trending-up" href="/guides/revenue-lifecycle">
+    Tailor pricing models for upsells, discounts, and ramps effortlessly.
+  </Card>
+  <Card title="Quote Builder" icon="file-text" href="/guides/quote-builder">
+    Build, update, and renew quotes using templates and guided selling.
+  </Card>
+  <Card title="CRM Automation" icon="users" href="/guides/crm-automation">
+    Sync customer data changes across integrated CRMs automatically.
+  </Card>
+</Columns>
+
+<Columns cols={3}>
+  <Card title="Product Information Management" icon="package" href="/guides/pim">
+    Manage the full lifecycle of products with centralized control.
+  </Card>
+  <Card title="Usage Metering" icon="activity" href="/guides/usage-metering">
+    Implement, price, and track usage-based consumption models.
+  </Card>
+  <Card title="Payment Management" icon="credit-card" href="/guides/payment-management">
+    Handle payments, refunds, and credits in multi-currency setups.
+  </Card>
+</Columns>
+
+<Callout kind="info">
+  Start with the Quickstart guide to enable these features in your account.
+</Callout>
+
+## Implementing Key Features
+
+Set up core features using the Monetizenow API at `https://api.example.com`. Begin by authenticating with your API key.
+
+<Tabs>
+  <Tab title="Revenue Lifecycle" icon="trending-up">
+
+    Configure pricing models to support upsells and discounts.
+
+    <Steps>
+      <Step title="Create Pricing Model" icon="settings">
+        Define your model via API.
+
+````jsx
+fetch('https://api.example.com/v1/pricing/models', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: 'Upsell Ramp',
+    upsellEnabled: true,
+    discountThreshold: 0.1
+  })
+});
+````
+
+      </Step>
+      <Step title="Apply to Quote" icon="file-text">
+        Link the model to a quote.
+
+````javascript
+const quote = await fetch('https://api.example.com/v1/quotes/123', {
+  method: 'PATCH',
+  headers: { 'Authorization': 'Bearer YOUR_API_KEY' },
+  body: JSON.stringify({ pricingModelId: 'model-456' })
+});
+````
+
+      </Step>
+    </Steps>
+
+  </Tab>
+  <Tab title="Quote Builder" icon="file-text">
+
+    Use templates for rapid quote generation.
+
+    <CodeGroup tabs="JavaScript,Python">
+````javascript
+// Create quote from template
+const response = await fetch('https://api.example.com/v1/quotes', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    templateId: 'quote-template-789',
+    customerId: 'cust-101'
+  })
+});
+````
+````python
+import requests
+
+response = requests.post(
+    'https://api.example.com/v1/quotes',
+    headers={
+        'Authorization': 'Bearer YOUR_API_KEY',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'templateId': 'quote-template-789',
+        'customerId': 'cust-101'
+    }
+)
+````
+    </CodeGroup>
+
+  </Tab>
+  <Tab title="CRM Automation" icon="users">
+
+    Automate data syncing with CRMs like Salesforce.
+
+    <ParamField header="X-CRM-ID" param-type="string" required="true">
+      Your CRM instance identifier.
+    </ParamField>
+
+    <ParamField body="syncEnabled" param-type="boolean" required="false">
+      Enable real-time syncing.
+    </ParamField>
+
+  </Tab>
+</Tabs>
+
+## Advanced Usage
+
+<Expandable title="Product Information Management (PIM)" default-open="true">
+  Centralize product data to manage lifecycles.
+
+  Update product metadata:
+
+````javascript
+await fetch('https://api.example.com/v1/products/abc123', {
+  method: 'PUT',
+  headers: { 'Authorization': 'Bearer YOUR_API_KEY' },
+  body: JSON.stringify({
+    name: 'Premium Plan',
+    lifecycleStage: 'active',
+    attributes: { cpu: '4 cores', storage: '100GB' }
+  })
+});
+````
+
+</Expandable>
+
+<Expandable title="Billing and Metering">
+  Track usage and manage payments.
+
+  <Callout kind="tip">
+    Combine usage metering with payment management for hybrid models.
+  </Callout>
+
+  Report usage:
+
+````bash
+curl -X POST https://api.example.com/v1/usage/report \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "customerId": "cust-101",
+    "metric": "api_calls",
+    "quantity": 1500,
+    "windowStart": "2024-01-01T00:00:00Z"
+  }'
+````
+
+</Expandable>
+
+## Best Practices
+
+- Integrate CRM automation early to keep data fresh.
+- Use quote templates for consistent upsells.
+- Monitor usage metering dashboards for billing accuracy.
+
+| Feature | Use Case | API Endpoint |
+|---------|----------|--------------|
+| Pricing Models | Upsells/Discounts | `/v1/pricing/models` |
+| Quote Builder | Renewals/Templates | `/v1/quotes` |
+| Usage Metering | Consumption Tracking | `/v1/usage/report` |
+
+<Columns cols={2}>
+  <Card title="Authentication" icon="lock" href="/authentication">
+    Secure your API access.
+  </Card>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Get running in minutes.
+  </Card>
+</Columns>

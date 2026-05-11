@@ -1,0 +1,116 @@
+---
+title: Changelog
+description: Track the latest updates, new features, and improvements in Monetizenow to stay informed about platform enhancements.
+---
+
+## Recent Updates
+
+Monetizenow releases updates regularly to enhance your B2B commerce experience. Review the latest changes below to understand new features, improvements, bug fixes, and any breaking changes.
+
+<Update label="2024-10-15" description="v2.1.0" tags={["feature", "improvement"]}>
+
+## New Features
+
+- Added support for multi-currency quoting in the Quote Builder, enabling global sales teams to generate localized quotes seamlessly.
+- Introduced Usage Metering dashboards with real-time analytics for tracking consumption-based billing.
+
+## Improvements
+
+- Enhanced CRM automation to sync customer data changes 40% faster with integrated platforms like Salesforce.
+- Optimized Billing Universe performance for handling larger invoice volumes.
+
+## Bug Fixes
+
+- Fixed intermittent failures in payment refunds for multi-currency transactions.
+- Resolved PIM lifecycle management issues when updating product bundles.
+
+</Update>
+
+<Update label="2024-09-20" description="v2.0.0" tags={["feature", "breaking"]}>
+
+## New Features
+
+- Launched Revenue Lifecycle automation, allowing dynamic pricing ramps and upsell recommendations during quoting.
+- Added advanced templates to Quote Builder for faster quote renewals and custom workflows.
+
+## Breaking Changes
+
+API endpoints for billing now require `version=2` header. Update your integrations:
+
+<CodeGroup tabs="JavaScript,cURL">
+````javascript
+const response = await fetch('https://api.example.com/v1/billing/invoices', {
+  headers: {
+    'Authorization': `Bearer ${YOUR_API_KEY}`,
+    'version': '2'  // Required for v2.0.0
+  }
+});
+````
+
+````bash
+curl -X GET https://api.example.com/v1/billing/invoices \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "version: 2"
+````
+</CodeGroup>
+
+## Migration Notes
+
+Review your `/billing` configurations and test endpoints in staging.
+
+</Update>
+
+<Update label="2024-08-10" description="v1.9.0" tags={["bugfix", "improvement"]}>
+
+## Improvements
+
+- Streamlined Payment Management UI for quicker credit applications and refunds.
+- Improved PIM integration to handle complex product hierarchies better.
+
+## Bug Fixes
+
+- Corrected usage metering calculation errors for tiered pricing models.
+- Fixed CRM data relay sync delays during high-volume updates.
+
+</Update>
+
+## Upcoming Roadmap
+
+Stay ahead with these planned enhancements:
+
+<Columns cols={2}>
+  <Card title="Advanced Analytics" icon="bar-chart-3" href="/guides/analytics">
+    Deep insights into revenue lifecycle metrics and customer behavior patterns.
+  </Card>
+  <Card title="AI-Powered Quoting" icon="zap" href="/guides/ai-quoting">
+    Intelligent upsell suggestions and automated discount optimizations.
+  </Card>
+  <Card title="Expanded Integrations" icon="plug" href="/configuration/integrations">
+    New connectors for ERP systems and custom webhook support.
+  </Card>
+  <Card title="Global Compliance" icon="shield" href="/authentication/compliance">
+    Enhanced support for regional billing regulations and data sovereignty.
+  </Card>
+</Columns>
+
+<Expandable title="Detailed Migration Guide for v2.0.0" default-open="false">
+
+If you encounter issues after upgrading to v2.0.0, follow these steps:
+
+<Steps>
+  <Step title="Update API Headers" icon="code">
+    Add the `version: 2` header to all billing API calls as shown in the code example above.
+  </Step>
+  <Step title="Test in Sandbox" icon="play">
+    Use your sandbox environment to validate quote and billing workflows.
+  </Step>
+  <Step title="Review Webhooks" icon="settings">
+    Update webhook endpoints to handle new payload schemas.
+  </Step>
+</Steps>
+
+</Expandable>
+
+<Callout kind="info">
+Subscribe to our release notifications via the dashboard settings to get email alerts for new versions and important migrations.
+</Callout>
